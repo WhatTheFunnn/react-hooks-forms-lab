@@ -3,10 +3,11 @@ import ItemForm from "./ItemForm";
 import Filter from "./Filter";
 import Item from "./Item";
 
-function ShoppingList({ items }) {
+function ShoppingList({ items, addNewItem}) {
   const [selectedCategory, setSelectedCategory] = useState("All");
+
   const [searchF, setSearchF] = useState("")
-  const [newItem] = useState("")
+  
 
 
   function handleCategoryChange(event) {
@@ -14,19 +15,15 @@ function ShoppingList({ items }) {
   }
 
   const itemsToDisplay = items.filter((item) => {
-    if (selectedCategory === "All") return true;
-
+    if (selectedCategory === "All") return true
+    
     return item.category === selectedCategory;
   }).filter(item => item.name.toUpperCase().includes(searchF.toUpperCase()))
-
-  function newItemAdd(event) {
-    newItem(console.log(event))
-  } 
 
   return (
 
     <div className="ShoppingList">
-      <ItemForm newItem={newItemAdd}/>
+      <ItemForm addNewItem={addNewItem}/>
 
       <Filter onCategoryChange={handleCategoryChange} setSearchF={setSearchF} searchF={searchF} />
 
